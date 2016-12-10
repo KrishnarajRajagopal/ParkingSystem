@@ -49,6 +49,8 @@ public class ParkingLot {
 
 				isEmpty = false;
 			}
+
+			System.out.println("Allocated slot number:" + parkingSpace.getSlotNumber());
 		} else {
 			System.out.println("Sorry, parking lot is full");
 		}
@@ -93,8 +95,8 @@ public class ParkingLot {
 			parkingSpace.setSlotNumber(i);
 			parkingSpace.setParkingType(ParkingType.REGULAR);
 			vacantParkingSpaces.add(parkingSpace);
-			System.out.println("Allocated slot number: " + parkingSpace.getSlotNumber());
 		}
+		System.out.println("Created a parking lot with " + slotCount + " slots");
 	}
 
 	public void parkVehicle(String[] attributes) {
