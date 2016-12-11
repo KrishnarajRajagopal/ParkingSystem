@@ -1,7 +1,8 @@
 package com.gojek.autopark.process;
 
 import java.util.Iterator;
-import java.util.Vector;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.gojek.autopark.vo.ParkingSpace;
 import com.gojek.autopark.vo.ParkingType;
@@ -9,11 +10,8 @@ import com.gojek.autopark.vo.Vehicle;
 
 public class ParkingLot {
 
-	// Vector<ParkingSpace> vacantParkingSpaces = null;
-	// Vector<ParkingSpace> fullParkingSpaces = null;
-
-	Vector<ParkingSpace> vacantParkingSpaces = new Vector<ParkingSpace>();
-	Vector<ParkingSpace> fullParkingSpaces = new Vector<ParkingSpace>();
+	List<ParkingSpace> vacantParkingSpaces = new CopyOnWriteArrayList<ParkingSpace>();
+	List<ParkingSpace> fullParkingSpaces = new CopyOnWriteArrayList<ParkingSpace>();
 
 	int parkingSpaceCount = 0;
 
@@ -90,6 +88,7 @@ public class ParkingLot {
 	}
 
 	public void createParkingSlot(int slotCount) {
+		parkingSpaceCount = slotCount;
 		for (int i = 1; i < slotCount + 1; i++) {
 			ParkingSpace parkingSpace = new ParkingSpace();
 			parkingSpace.setSlotNumber(i);
@@ -101,8 +100,8 @@ public class ParkingLot {
 
 	public void parkVehicle(String[] attributes) {
 		Vehicle vehicle = new Vehicle();
-		vehicle.setNumber(attributes[0]);
-		vehicle.setColour(attributes[1]);
+		vehicle.setNumber(attributes[1]);
+		vehicle.setColour(attributes[2]);
 		parkVehicle(ParkingType.REGULAR, vehicle);
 	}
 
@@ -132,8 +131,7 @@ public class ParkingLot {
 			while (itr.hasNext()) {
 				ParkingSpace parkingSpace = itr.next();
 				if (parkingSpace.getVehicle().getColour().equals(colour)) {
-					System.out.println(parkingSpace.getSlotNumber() + "\t" + parkingSpace.getVehicle().getNumber()
-							+ "\t" + parkingSpace.getVehicle().getColour());
+					System.out.println(parkingSpace.getVehicle().getNumber());
 					foundFlag = true;
 				}
 			}
@@ -153,8 +151,7 @@ public class ParkingLot {
 			while (itr.hasNext()) {
 				ParkingSpace parkingSpace = itr.next();
 				if (parkingSpace.getVehicle().getColour().equals(colour)) {
-					System.out.println(parkingSpace.getSlotNumber() + "\t" + parkingSpace.getVehicle().getNumber()
-							+ "\t" + parkingSpace.getVehicle().getColour());
+					System.out.println(parkingSpace.getSlotNumber());
 					foundFlag = true;
 				}
 			}
@@ -178,8 +175,7 @@ public class ParkingLot {
 			while (itr.hasNext()) {
 				ParkingSpace parkingSpace = itr.next();
 				if (parkingSpace.getVehicle().getNumber().equals(registrationNo)) {
-					System.out.println(parkingSpace.getSlotNumber() + "\t" + parkingSpace.getVehicle().getNumber()
-							+ "\t" + parkingSpace.getVehicle().getColour());
+					System.out.println(parkingSpace.getSlotNumber());
 					foundFlag = true;
 				}
 			}
